@@ -1,79 +1,42 @@
-<?php require_once 'funciones.php';
+<?php require_once('funciones.php');
+$show = 0;
+if(isset($_GET['Asc'])){
+    $products = getProductsAsc();
+}elseif(isset($_GET['Desc'])){
+    $products = getProductsDesc();
+}else{
+    $products = getProducts();
+}
+ $total = count($products);
+ switch ($total){
+     case ($total<=50):
+     $show = round($total/2);
+        break;
+     case ($total> 50 && $total <101):
+     $show = round($total/4);
+        break;
+     default:
+     $show = round($total/10);
+ }
  $user = getUser();
- $products = getProducts();
-  echo $products[0]["img"]["url"];
-$contador = 0;
+ $contador = 0;
+
 ?>
 
 <!DOCTYPE html>
-
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Aero Lab</title>
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/style.css">
-    </head>
+<?php require_once("head.php"); ?>
+
     <body>
         <div class="wrapper">
             <!-- Sidebar Holder -->
-            <nav id="sidebar">
-                <div class="sidebar-header">
-                    <h3>AeroLab Market</h3>
-                </div>
-
-                <ul class="list-unstyled components">
-                    <p>Opciones</p>
-                    <li class="active">
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
-                        <ul class="collapse list-unstyled" id="homeSubmenu">
-                            <li><a href="#">Home 1</a></li>
-                            <li><a href="#">Home 2</a></li>
-                            <li><a href="#">Home 3</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">About</a>
-                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
-                        <ul class="collapse list-unstyled" id="pageSubmenu">
-                            <li><a href="#">algo</a></li>
-                            <li><a href="#">Page 2</a></li>
-                            <li><a href="#">Page 3</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">Portfolio</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
-                </ul>
-            </nav>
+            <?php require_once("sidebar.php"); ?>
 
             <!-- Page Content Holder -->
             <div id="content">
 
-                <nav class="navbar navbar-default">
-                    <div class="container-fluid">
+                <?php require_once("topNavbar.php"); ?>
 
-                        <div class="navbar-header">
-                            <button type="button" id="sidebarCollapse" class="navbar-btn">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </button>
-                        </div>
-
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul class="nav navbar-nav navbar-right">
-
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
                 <div class="contenido">
                     <img class="logo" src="assets/aerolab-logo.svg">
                     <div>
@@ -93,22 +56,39 @@ $contador = 0;
                     </div>
 
                     <section class="products">
-                        <div>Titulos y filtros</div>
-                        <div class="row">productos en si con 16 cajas por producto
+                        <div class="filters">
+                            <lable class="lable">Sort by:</lable>
+                            <form class="mostRecent" method="get" action="index.php">
+                                <input type="hidden" name="nada" value="sort">
+                                <button type="submit">Most recent</button>
+                            </form>
+                            <form class="lowestPrice" method="get" action="index.php">
+                                <input type="hidden" name="Asc" value="sort">
+                                <button type="submit">Lowest price</button>
+                            </form>
+                            <form class="highestPrice" method="get" action="index.php">
+                                <input type="hidden" name="Desc" value="sort">
+                                <button type="submit">Highest price</button>
+                            </form>
+                            <div><?php echo $show. " of ". $total?> </div>
+                        </div>
+                        <div class="row">
                             <div class="line"></div>
                                 <?php foreach ($products as $product){ $contador ++; ?>
                                 <div class="box col-sm-4">
                                     <div id="<?php echo $contador?>" class="cover">
-                                        <?php if((int)$product["cost"] < (int)$user["points"]){
-                                            echo "Redeem";
+                                        <?php if((int)$product["cost"] <= (int)$user["points"]){ ?>
+                                            <b><?php echo $product["cost"] . "<img src=\"assets/icons/coin.svg\">" ?> </b>
+                                            <button onclick='redeem( "<?php echo $product["_id"]; ?>" )' > Redeem now</button>
+                                        <?php
                                         } else {
                                             $x = (int)$product["cost"] - (int)$user["points"];
-                                            echo "You'r ". $x."<img src=\"assets/icons/coin.svg\">". " short.";
+                                            echo "<p>You're ". $x."<img src=\"assets/icons/coin.svg\">". " short.</p>";
                                         } ?>
                                     </div>
                                         <img class="whiteBlue whiteBlue<?php echo $contador?>" src="assets/icons/buy-blue.svg">
                                         <div>
-                                            <img class="productImg" src="<?php echo $product["img"]["url"];?>">
+                                            <img class="productImg" src="<?php echo $product['img']['url'];?>">
                                         </div>
                                         <div class="productLine"></div>
                                         <div class="productTitle1">
@@ -155,6 +135,7 @@ $contador = 0;
                  });
              });
          </script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>

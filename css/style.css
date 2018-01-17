@@ -309,6 +309,107 @@ margin: 0 132px 0 132px;
     box-shadow:12px 12px 8px 0 rgba(0,0,0,0.10);
     opacity: 0.85;
 }
+.cover button{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 24px;
+    color: grey;
+    letter-spacing: -0.08px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,50%);
+    background-color: white;
+    border-radius: 100px;
+    border-style: none;
+    width: 60%;
+    padding: 3px 0px 3px 0px;
+}
+.cover b{
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%,50%);
+    font-size: 30px;
+    color: white;
+}
+.cover p{
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%,50%);
+    font-size: 17px;
+    color: black;
+    background: white;
+    border-radius: 25px;
+    width: 80%;
+    padding: 6px 10px 6px 10px;
+}
+.cover b img{
+    padding-left: 3px;
+}
+.box:hover{
+    transform: scale(1.08);
+    transition: 0.5ms;
+}
+.filters {
+    padding-top: 64px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.filters form button{
+    border-radius: 100px;
+    background:#ededed;
+    font-size:24px;
+    color:#a3a3a3;
+    letter-spacing:-0.15px;
+    line-height:48px;
+    border: none;
+    width:178px;
+    text-align: center;
+
+}
+.filters form button:hover{
+    background:#0ad4fa;
+    color:#ffffff;
+}
+.lable{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size:24px;
+    color:#a3a3a3;
+    letter-spacing:-0.15px;
+    line-height:48px;
+    text-align:left;
+}
+.mostRecent, .lowestPrice, .highestPrice{
+    margin: 0 10px 0 10px;
+}
+
+
+/* ---------------------------------------------------
+    History
+----------------------------------------------------- */
+
+.historyImg{
+    height: 80px;
+}
+tbody td{
+    vertical-align: inherit!important;
+}
+.history{
+    margin: 30px 130px 0 130px;
+    border: 3px solid;
+    clear: both;
+}
+.history th{
+    cursor: pointer;
+    color: #16C9F6;
+    font-size: 20px;
+}
+.history td{
+    font-size: 18px;
+
+}
 /* ---------------------------------------------------
     MediaQuerys
 ----------------------------------------------------- */
