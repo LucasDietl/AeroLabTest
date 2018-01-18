@@ -10,7 +10,8 @@ function addEvent(one, x){
         document.getElementById(x).style.display = 'block';
         var y = document.querySelector('.whiteBlue'+x);
         y.setAttribute('src','assets/icons/buy-white.svg');
-        if(document.getElementById('notRedeemable'+x).length = 1){
+
+        if(document.getElementById('notRedeemable'+x)!= null){
             document.getElementById(x).style.setProperty('background-color','lightgrey', 'important');
         }
     });
@@ -54,7 +55,7 @@ function getPoints(points){
             console.log('Body:', this.responseText);
             swal({
                 title: "Congratulations",
-                text: this.responseText,
+                text: points + " have been added to your account",
                 icon: "success"
             }).then(() => {
                 window.location.href = "index.php";
