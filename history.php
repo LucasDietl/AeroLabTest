@@ -12,9 +12,6 @@ $historys = getHistory();
 
 <body>
 <div class="wrapper">
-    <!-- Sidebar Holder -->
-    <?php require_once("sidebar.php"); ?>
-
     <!-- Page Content Holder -->
     <div id="content">
 
@@ -68,7 +65,7 @@ $historys = getHistory();
     </div>
 </div>
 
-
+<?php require_once("footer.php"); ?>
 
 
 
@@ -76,16 +73,9 @@ $historys = getHistory();
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <!-- Bootstrap Js CDN -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#sidebarCollapse').on('click', function () {
-            $('#sidebar').toggleClass('active');
-            $(this).toggleClass('active');
-        });
-    });
-</script>
+<!-- SweetAlert  CDN -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- Personal JS -->
 <script src="js/main.js"></script>
 </body>
 </html>

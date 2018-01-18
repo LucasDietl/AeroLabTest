@@ -112,28 +112,16 @@ if(isset($_GET['Asc'])){
 
         </div>
 
-        <footer>
-            <div> <p>Aerolab’s Coding Challenge - Lucas Dietl </p></div>
-        </footer>
-
-
-
+        <?php require_once("footer.php"); ?>
 
 
         <!-- jQuery CDN -->
          <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
          <!-- Bootstrap Js CDN -->
          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-         <script type="text/javascript">
-             $(document).ready(function () {
-                 $('#sidebarCollapse').on('click', function () {
-                     $('#sidebar').toggleClass('active');
-                     $(this).toggleClass('active');
-                 });
-             });
-         </script>
+        <!-- SweetAlert  CDN -->
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- Personal JS -->
         <script src="js/main.js"></script>
     </body>
 </html>
