@@ -8,16 +8,8 @@ if(isset($_GET['Asc'])){
     $products = getProducts();
 }
  $total = count($products);
- switch ($total){
-     case ($total<=50):
-     $show = round($total/2);
-        break;
-     case ($total> 50 && $total <101):
-     $show = round($total/4);
-        break;
-     default:
-     $show = round($total/10);
- }
+ $show = $total/2;
+
  $user = getUser();
  $contador = 0;
 
@@ -29,9 +21,6 @@ if(isset($_GET['Asc'])){
 
     <body>
         <div class="wrapper">
-            <!-- Sidebar Holder -->
-            <?php require_once("sidebar.php"); ?>
-
             <!-- Page Content Holder -->
             <div id="content">
 
@@ -57,25 +46,29 @@ if(isset($_GET['Asc'])){
 
                     <section class="products">
                         <div class="filters">
-                            <lable class="lable">Sort by:</lable>
+                            <label class="lable">Sort by:</label>
                             <form class="mostRecent" method="get" action="index.php">
                                 <input type="hidden" name="nada" value="sort">
-                                <button type="submit">Most recent</button>
+                                <button id="mostRecent" type="submit">Most recent</button>
                             </form>
                             <form class="lowestPrice" method="get" action="index.php">
                                 <input type="hidden" name="Asc" value="sort">
-                                <button type="submit">Lowest price</button>
+                                <button id="lowestPrice" type="submit">Lowest price</button>
                             </form>
                             <form class="highestPrice" method="get" action="index.php">
                                 <input type="hidden" name="Desc" value="sort">
-                                <button type="submit">Highest price</button>
+                                <button id="highestPrice" type="submit">Highest price</button>
                             </form>
-                            <div><?php echo $show. " of ". $total?> </div>
+                            <div class="total"><?php echo $show. " of ". $total . " Products"?> </div>
+                            <div class="total2"><?php echo $total. " of ". $total . " Products"?> </div>
+                            <div id="arrowRight">
+                                <a><img id="change" src="assets/icons/arrow-right.svg"></a>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="line"></div>
                                 <?php foreach ($products as $product){ $contador ++; ?>
-                                <div class="box col-sm-4">
+                                <div class="box box<?php echo $contador?>">
                                     <div id="<?php echo $contador?>" class="cover">
                                         <?php if((int)$product["cost"] <= (int)$user["points"]){ ?>
                                             <b><?php echo $product["cost"] . "<img src=\"assets/icons/coin.svg\">" ?> </b>
@@ -116,7 +109,12 @@ if(isset($_GET['Asc'])){
 
 
              </div>
+
         </div>
+
+        <footer>
+            <div> <p>Aerolab’s Coding Challenge - Lucas Dietl </p></div>
+        </footer>
 
 
 

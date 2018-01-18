@@ -27,10 +27,15 @@ for(i=0 ; i < len ; i++){
     addEvent(abbrs[i], i+1);
     addEventTwo(abbrs[i], i+1);
 }
+
+
+/* ---------------------------------------------------
+   Carga de puntos y cambio de productos
+----------------------------------------------------- */
+
 document.getElementById('a1').addEventListener('click',function(){getPoints(1000)},false);
 document.getElementById('a2').addEventListener('click',function(){getPoints(5000)},false);
 document.getElementById('a3').addEventListener('click',function(){getPoints(7500)},false);
-
 
 function getPoints(points){
     console.log("entro a la funcion getpoints "+points);
@@ -100,6 +105,10 @@ function redeem(id){
 
     request.send(JSON.stringify(body));
 }
+
+/* ---------------------------------------------------
+   Orden del historial
+----------------------------------------------------- */
 
 function sortTable(n) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -184,4 +193,75 @@ function sortData(n) {
             }
         }
     }
+}
+/* ---------------------------------------------------
+    Efectos del sidebar
+----------------------------------------------------- */
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+
+/* ---------------------------------------------------
+    Cambios de hoja por parte del navegador
+----------------------------------------------------- */
+
+for (i = document.getElementsByClassName("box").length / 2+1 ; i <= (document.getElementsByClassName("box").length); i++) {
+    document.querySelector(".box"+ i ).style.display = "none";
+}
+
+document.getElementById('arrowRight').addEventListener('click',function(){next()});
+
+function next() {
+
+
+    for (i = document.getElementsByClassName("box").length / 2+1 ; i <= (document.getElementsByClassName("box").length); i++) {
+        document.querySelector(".box"+ i ).style.display = "block";
+    }
+        document.getElementById("arrowRight").removeEventListener('click',function(){next()});
+        document.getElementById("change").setAttribute("src","assets/icons/arrow-left.svg");
+        document.getElementById('arrowRight').addEventListener('click',function(){previous()});
+        document.querySelector(".total").style.display = "none";
+        document.querySelector(".total2").style.display = "block";
+
+    for (i = 1; i <= (document.getElementsByClassName("box").length / 2); i++) {
+        document.querySelector(".box" + i).style.display = "none";
+    }
+}
+
+function previous(){
+
+    for (i = document.getElementsByClassName("box").length / 2+1 ; i <= (document.getElementsByClassName("box").length); i++) {
+        document.querySelector(".box"+ i ).style.display = "none";
+    }
+    for (i = 1; i <= (document.getElementsByClassName("box").length / 2); i++) {
+        document.querySelector(".box" + i).style.display = "block";
+    }
+    document.getElementById('arrowRight').addEventListener('click',function(){next()});
+    document.getElementById("arrowRight").removeEventListener('click',function(){previous()});
+    document.getElementById("change").setAttribute("src","assets/icons/arrow-right.svg");
+    document.querySelector(".total").style.display = "block";
+    document.querySelector(".total2").style.display = "none";
+
+}
+
+/* ---------------------------------------------------
+    Color de los filtros
+----------------------------------------------------- */
+color();
+function color(){
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+
+    if(url.searchParams.get("Desc") == "sort"){
+        document.getElementById("highestPrice").className += 'buttonActive';
+    }else if(url.searchParams.get("Asc") == "sort"){
+        document.getElementById("lowestPrice").className += 'buttonActive';
+    }else{
+        document.getElementById("mostRecent").className += 'buttonActive';
+    }
+
 }
